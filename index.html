@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="loader">
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+
+    <div class="content inactive">
+        <div class="hero">
+            <h2 class="city">-</h2>
+            <h3 class="description">-</h3>
+            <h1 class="temperature">
+                -°
+            </h1>
+            <h4 class="details">Max. -° Min. -°</h4>
+        </div>
+        <div class="subHero">
+            <ul></ul>
+        </div>
+    
+        <div class="daily">
+            <ul class="daily-weather">
+                <script type="module">
+                    
+                    import {createHTMLelement} from "./HTMLfunctions.js";
+                    
+                    for (let i = 0; i <7; i++) 
+                    {
+                        let li = createHTMLelement("li");
+                        let spans = ["week-day","daily-icon","day","night"]
+                        for (let i = 0; i < spans.length; i++) {
+                            li.append(createHTMLelement("span",spans[i],{},"-"));
+                        }
+                        document.querySelector(".daily-weather").append(li);
+                    }
+                </script>
+            </ul>
+        </div>
+        <div class="today-details">
+            <ul>
+                <li>
+                    <div>
+                        <p>Lever</p>
+                        <p id="lever">-:-</p>
+                    </div>
+                    <div>
+                        <p>coucher</p>
+                        <p id="coucher">-:-</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <p>risque de pluie</p>
+                        <p id="risque-de-pluie">-%</p>
+                    </div>
+                    <div>
+                        <p>humidité</p>
+                        <p id="humidite">-%</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <p>vent</p>
+                        <p id="vent">- km/h</p>
+                    </div>
+                    <div>
+                        <p>ressenti</p>
+                        <p id="ressenti">-°</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <p>precipitations</p>
+                        <p id="precipitations">- cm</p>
+                    </div>
+                    <div>
+                        <p>pression</p>
+                        <p id="pression">- hPa</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <p>visibilité</p>
+                        <p id="visibilite">- km</p>
+                    </div>
+                    <div>
+                        <p>indice uv</p>
+                        <p id="uv">-</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+</body>
+<script>
+    const loader = document.querySelector(".loader");
+    const content = document.querySelector(".content");
+
+    window.addEventListener("DOMContentLoaded",()=>{
+        loader.classList.add("inactive");
+        content.classList.remove("inactive");
+    })
+
+</script>
+<script src="./app.js" type="module"></script>
+<script src="./caroussel.js"></script>
+</html>
