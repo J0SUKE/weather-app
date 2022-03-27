@@ -155,53 +155,14 @@ function setTodaysDetails(data)
 
 }
 
-function askPermission() {
-    const cookies = document.cookie.split("; ");
-    if(cookies.find(row => row=="permission=yes"))
-    {
-        return true;
-    }
-    else
-    {
-        document.body.append(createHTMLelement("div","ask-authorization"));
-        document.querySelector(".ask-authorization").innerHTML = "<div class=\"ask-modal\"><p>In order to work correctly Weather needs to have access to your geolocation data</p><div class=\"buttons\"><div class=\"btn\" data-btn=\"allow\">Allow</div><div class=\"btn\" data-btn=\"deny\">Deny</div></div></div>";
-
-        
-        let btns = document.querySelectorAll(".btn");
-        btns.forEach(element => {
-            element.addEventListener("click",(e)=>{
-                if(e.target.dataset.btn=="allow")
-                {
-                    let date = new Date();
-                    date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
-                    const expires = "expires=" + date.toUTCString();
-                    
-                    document.cookie = `permission=yes; ${expires}; secure`;
-                    document.querySelector(".ask-authorization").remove();   
-                    return true;
-                }
-                else
-                {
-                    document.querySelector(".ask-authorization").remove();   
-                    return false;
-                }
-            })
-        })
-
-    }
-}
-
 
 if(navigator.geolocation != undefined)
 {
-    if(askPermission())
-    {
-        navigator.geolocation.getCurrentPosition(setPosition,showError);
+    navigator.geolocation.getCurrentPosition(setPosition,showError);
     
-        setInterval(() => {
-            navigator.geolocation.getCurrentPosition(setPosition,showError);
-        }, 5*60*1000);
-    }
+    setInterval(() => {
+        navigator.geolocation.getCurrentPosition(setPosition,showError);
+    }, 5*60*1000);
     
 }
 else
